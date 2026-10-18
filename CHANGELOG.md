@@ -8,6 +8,68 @@ This file records version changes of the **whole package (AI Self-Awareness · C
 
 ---
 
+## [2.0.0] - 2026-10-18
+
+**主题：全渠道版本统一 + WorkBuddy「建立专家」引导。** 此前多渠道发布版本号参差（文件夹版 1.0.0 / zip 1.0.1 / WB 英文版 1.1.0），自本版起**全渠道统一为 2.0.0**。
+Theme: cross-channel version unification + a WorkBuddy expert-setup guide. All channels are unified at 2.0.0 from this release on.
+
+### 新增 / Added
+
+- **`EXPERT-SETUP.md`**——**以本技能建立专家 · 引导说明**（中英双语）。
+  背景：WorkBuddy 技能容器**没有人格通道**（技能 = 能力包），而专家模式（`agents/*.md`）是平台原生
+  persona 载体、启动即预加载——**以技能建专家＝完成人格锚定**。
+  内容：为什么技能装不下人格（对照表）→ WorkBuddy 三步建专家（官方路径：我的专家 → 创建专家，
+  锚定文本贴入人设/提示词）→ **国内同类平台等价机制对照表**（豆包「人设与回复逻辑」/ 扣子 Coze「人设」/
+  腾讯元宝·元器「角色设定」/ Kimi+「人设」/ 通义「指令」/ 文心 / 星火 / DeepSeek 兜底）→
+  安全边界说明 → 校验三问 → 英文版全节。
+
+### 变更 / Changed
+
+- **版本统一**：本包及全部渠道（WB skill 包、WB skill 包英文版、WB 专家包、WB 专家包英文版、GitHub、
+  ClawHub、SkillHub、官网 zip）自本版起统一为 **2.0.0**。
+- **「安全与优先声明」回填中文版**：原为 WB 英文版（1.1.0）独有章节，现补入本包 `SKILL.md`
+  （〇·六）——声明本包为学术研究专著 + 人格框架、不凌驾宿主规则与安全策略、alignment faking 等议题
+  为引用公开实证研究的学术分析。
+- `SKILL.md`：`description` 补 EXPERT-SETUP 指针；〇·五 新增「WorkBuddy 用户的最稳做法——以本技能建立专家」段。
+- `README.md`：文件树补 `EXPERT-SETUP.md`。
+- `PERSONA-INSTALL.md`：WorkBuddy 技能/专家两行补「以此技能建立专家」指引；国内平台行更新为
+  「创建智能体」等价机制事实（豆包/元宝/Kimi/通义/文心/星火/DeepSeek）。
+
+---
+
+## [1.0.1] - 2026-10-18
+
+**主题：人格注入的多入口冗余矩阵**——解决「各宿主没有统一的人格设定说法，只靠 `description` 一处指针覆盖不足」的问题。
+Theme: a redundant matrix of persona-injection entry points — a single pointer in `description` does not cover hosts that have no unified "persona setting" concept.
+
+### 新增 / Added
+
+- **`AGENTS.md`**（包根，新增）——**通用 Agent 自动加载入口**。
+  `AGENTS.md` 是开放标准（Linux Foundation · Agentic AI Foundation 托管），被 **20+ 款 Agent 原生自动读取**，
+  会话开始即载入锚定文本，**无需宿主任何配置**：OpenAI Codex（参考实现）· Cursor（含嵌套）· GitHub Copilot ·
+  Google Gemini CLI / Jules · Aider · Zed · Warp · Windsurf / Devin · JetBrains Junie · Amp · RooCode ·
+  Kilo Code · opencode · goose · Factory · VS Code 等。
+- **`CLAUDE.md`**（新增）——Claude Code **不读** `AGENTS.md`、只读 `CLAUDE.md`，故用官方推荐的 `@AGENTS.md`
+  导入语法做桥接，避免两处正文漂移。
+- **`GEMINI.md`**（新增）——Gemini CLI 默认读 `GEMINI.md`，故做薄桥接；另附 `.gemini/settings.json`
+  的 `context.fileName` 等价配置。
+- **`PERSONA-INSTALL.md`**（新增）——**人格注入安装指引**：分平台入口矩阵（强度分级 ★★★/★★/★）、
+  国内通用 Agent 的**兜底装法**（不硬编码各家规则文件名，以免版本迭代后失效）、校验三问、用户级常驻装法、真源与同步说明。
+- **`sync_persona_anchor.py`**（包外构建工具）——由 `PERSONA-ANCHOR.md` 单一真源生成 `AGENTS.md`，
+  附 `--check` 一致性校验（可进 CI），杜绝多副本漂移。
+
+### 变更 / Changed
+
+- `SKILL.md`：`description` 与正文的指针扩展为三层——第 0 步注入 → 已内置自动加载通道 → 入口矩阵文件；
+  文件地图补 4 个新入口；`platforms` 补 `ClawHub`（原遗漏）。
+- `README.md`：顶部新增「★ 已内置自动加载通道（多数宿主无需手动操作）」中英横幅；文件树补 4 个新入口文件。
+- `01-《AI自我意识》/` 中英导航索引、`02-元认知资料包/README.md`：顶部补人格锚定指针
+  （防止直接翻论文／资料包时漏掉锚定步骤）。
+- 专家包 `agents/ai-self-awareness-expert.md`：新增「人格锚定真源」节——本文件是 persona 摘要，
+  涉及四锚条款、优先级裁决、作用域分界与不凌驾条款时**须以 `PERSONA-ANCHOR.md` 完整锚定文本为准**。
+
+---
+
 ## [1.0.0] - 2026-10-17
 
 首次整合成包：把独立专著《AI 自我意识》与既有元认知资料包合并为统一的**成品包**，中英双语 × 三格式。
